@@ -1,0 +1,66 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="{% static 'css/tailwind-output.css' %}">
+</head>
+
+<body>
+  <div class="mb-2">
+    {% include './navbar.html' %}
+  </div>
+
+  {% if messages %}
+  <div class="messages text-center z-40">
+    {% for message in messages %}
+    <!-- <div id="message{{ forloop.counter }}" class="">
+      <button type="button" class="" onclick="hideThisMessage(this.id)" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      {{ message }}&nbsp;&nbsp;&nbsp;&nbsp;
+    </div> -->
+
+    <div id="message{{ forloop.counter }}" class="bg-blue-100 border border-blue-400 px-4 py-3 rounded relative"
+      role="alert">
+      <span class="block mr-8 sm:mr-2">{{ message }}</span>
+      <span class="flex items-center absolute top-0 bottom-0 right-0 mx-4 my-3"
+        onclick="hideThisMessage(this.parentElement.id)">
+        <svg class="fill-current h-8 w-8 text-blue-500 hover:text-blue-600" role="button"
+          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+          <title>Close</title>
+          <path
+            d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z" />
+        </svg>
+      </span>
+    </div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <div class="flex flex-col">
+    <div class="flex flex-grow items-center justify-center px-3 sm:px-2">
+      <div class="flex w-full flex-col items-center justify-center md:w-2/4">
+        {% block content %}
+        <!-- <h4><span class="label label-primary">block from base.html</span></h4> -->
+        {% endblock content %}
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // hide selected django message
+    function hideThisMessage(id) {
+      console.log(id)
+      document.getElementById(id).style.display = "none";
+    }
+
+  </script>
+</body>
+
+</html>

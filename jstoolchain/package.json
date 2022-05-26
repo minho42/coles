@@ -1,0 +1,15 @@
+{
+  "name": "jstoolchain",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npx tailwindcss -i css/tailwind.css -o ../static/css/tailwind-output.css"
+  },
+  "keywords": [],
+  "author": "Min ho Kim <minho42@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "tailwindcss": "^3.0.24"
+  }
+}

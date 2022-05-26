@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Coles{% endblock title %}
+
+{% block content %}
+
+<div class="bg-gray-100 p-2">
+  <h1 class="text-xl">{{ object.card_number }}</h1>
+  <p class="">Balance: {{ object.balance }}</p>
+  <p class="">Available: {{ object.is_available }}</p>
+  <p class="">User: {{ object.user }}</p>
+</div>
+
+{% endblock content %}
