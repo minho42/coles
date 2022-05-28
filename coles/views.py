@@ -4,7 +4,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import IntegrityError
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, ListView
 from django.utils.timezone import now
@@ -19,22 +18,19 @@ def sync(request):
     cards = Coles.objects.filter(user=request.user.id)
     for card in cards:
         try:
-            c = get_object_or_404(Coles, id=card.id)
-            c.balance = 0
-            c.is_last_sync_success = False
-
             balance = get_balance(card.card_number, card.pin)
             print(balance)
 
-            c.balance = float(balance)
-            c.is_last_sync_success = True
-            c.last_sync_time = now()
-            c.save()
-            messages.success(request, f"Synced: {card.card_number}")
+            card.balance = float(balance)
+            card.is_last_sync_success = True
+            card.last_sync_time = now()
+            card.save()
+            messages.success(request, f"Synced: {card.card_number}: {card.balance}")
         except:
+            card.balance = 0
+            card.is_last_sync_success = False
+            card.save()
             messages.error(request, f"Something went wrong: {card.card_number}")
-        finally:
-            c.save()
     return HttpResponseRedirect(reverse("coles:list"))
 
 
