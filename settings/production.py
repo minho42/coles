@@ -1,5 +1,4 @@
 from .base import *
-from .security import *
 
 import django_heroku
 
