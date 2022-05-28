@@ -4,23 +4,50 @@
 {% block title %}Coles{% endblock title %}
 
 {% block content %}
-<div class="">
-  <a class="btn" href={% url 'coles:sync' %}>Sync</a>
+<div class="flex flex-col space-y-3 items-center w-full sm:w-auto">
+
+  <div class="flex w-full justify-between gap-2">
+    <a class="bg-blue-600 text-white px-4 py-2 rounded-md w-full text-center" href={% url 'coles:sync' %}>Sync</a>
+    <a class="bg-green-600 text-white px-4 py-2 rounded-md w-full text-center" href={% url 'coles:add' %}>Add</a>
+  </div>
+
+  <p class="">
+    {{ coles_cards_count }} gift card{{ coles_cards_count|pluralize }}
+  </p>
+  {% if coles_cards %}
+  {% for card in coles_cards %}
+
+  <div class="w-full bg-white rounded-xl border border-gray-300 text-center mb-3
+  {% if card.is_last_sync_success %} text-black{% else %} text-gray-500 {% endif %}">
+    <a href="{% url 'coles:detail' card.pk %}">
+      <div class="px-4 py-3 space-y-2">
+
+        <div class="text-2xl">
+          {{ card.card_number }}
+        </div>
+        <div class="text-2xl">
+          {{ card.pin }}
+        </div>
+        <div class="text-3xl font-semibold">
+          ${{ card.balance }}
+        </div>
+        <div class="">
+          {{ card.is_last_sync_success|yesno:"Synced,Not synced" }}
+        </div>
+        {% if card.is_last_sync_success %}
+        <div class="">
+          {{ card.last_sync_time|default_if_none:"not yet" | naturaltime }}
+        </div>
+        {% endif %}
+      </div>
+    </a>
+  </div>
+
+
+
+  {% endfor %}
+
+  {% endif %}
 </div>
 
-<div class="">
-  {{ coles_cards_count }} gift cards
-</div>
-{% if coles_cards %}
-{% for card in coles_cards %}
-<div class="bg-gray-100 px-4 py-3 rounded-xl text-center mb-3">
-  <div class="text-2xl">
-    {{ card.card_number }}
-  </div>
-  <div class="text-3xl font-semibold">
-    ${{ card.balance }}
-  </div>
-</div>
-{% endfor %}
-{% endif %}
 {% endblock content %}

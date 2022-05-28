@@ -7,6 +7,6 @@ from .models import Coles
 
 class ColesAdmin(admin.ModelAdmin):
     list_display: get_all_fields_excluding(Coles, [])
-    list_filter = ["is_available"]
+
 
 admin.site.register(Coles, ColesAdmin)

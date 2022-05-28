@@ -1,17 +1,17 @@
 {% load static %}
 
 <nav>
-  <header class=" border-b border-gray-300 shadow-sm">
-    <div class="flex items-center justify-between pl-3 pr-3 py-2 h-12">
+  <header class="border-b border-gray-300 shadow-sm">
+    <div class="bg-white flex items-center justify-between pl-3 pr-3 py-2 h-10">
       <div class="flex items-center">
         <a class="px-1 py-1 font-semibold text-black hover:text-black" href="/">
-          <span class="">Coles</span>
+          <span class="">Giftcard</span>
         </a>
       </div>
       <div class="">
         {% if request.user.is_authenticated %}
         <a class="text-black hover:text-black block px-3 py-2 ml-2 text-center rounded-lg border-none"
-          href="{% url 'coles:list' %}">List</a>
+          href="{% url 'coles:list' %}">Coles</a>
         {% endif %}
       </div>
 
@@ -45,7 +45,7 @@
             <div id="dropdownMenuOverlay" class="z-40 absolute w-full h-full bg-black opacity-0 top-0 left-0">
             </div>
             <div
-              class="z-40 origin-top-right absolute right-0 sm:right-4 mt-0 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+              class="z-40 origin-top-right absolute right-0 sm:right-4 mt-0 w-56 rounded-xl shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
               role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
 
               <div class="mr-3 my-2">
@@ -60,9 +60,6 @@
                   href="{% url 'profiles:user' request.user.slug %}">
                   Hi, <b>{{ user.firstname_or_username }}</b>
                 </a>
-
-                <a class="block px-3 py-2 ml-2 text-center rounded-lg border-none hover:bg-gray-100"
-                  href="{% url 'coles:list' %}">List</a>
 
                 <a class="block px-3 py-2 ml-2 text-center rounded-lg border-none hover:bg-gray-100"
                   href="{% url 'account_logout' %}">

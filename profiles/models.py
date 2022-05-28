@@ -26,3 +26,15 @@ class User(AbstractUser):
         if self.first_name:
             return self.first_name
         return self.username
+
+    @property
+    def initial(self):
+        initial = ""
+        if len(self.first_name) > 0:
+            initial = self.first_name[0]
+        if len(self.last_name) > 0:
+            initial += self.last_name[0]
+
+        if not (self.first_name or self.last_name):
+            initial = self.username[0]
+        return initial

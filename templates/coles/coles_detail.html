@@ -1,14 +1,46 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load humanize %}
 
-{% block title %}Coles{% endblock title %}
+{% block title %}Detail{% endblock title %}
 
 {% block content %}
 
-<div class="bg-gray-100 p-2">
-  <h1 class="text-xl">{{ object.card_number }}</h1>
-  <p class="">Balance: {{ object.balance }}</p>
-  <p class="">Available: {{ object.is_available }}</p>
-  <p class="">User: {{ object.user }}</p>
+<div class="flex flex-col space-y-3 items-center w-full sm:w-auto">
+
+  <div class="w-full bg-white rounded-xl border border-gray-300 text-center mb-3 space-y-2 px-4 py-3">
+    <div class="text-2xl">
+      {{ object.card_number }}
+    </div>
+    <div class="text-2xl">
+      {{ object.pin }}
+    </div>
+    <div class="text-3xl font-semibold">
+      ${{ object.balance }}
+    </div>
+    <div class="">
+      {{ object.is_last_sync_success|yesno:"Synced,Not synced" }}
+    </div>
+    {% if object.is_last_sync_success %}
+    <div class="">
+      {{ object.last_sync_time|default_if_none:"not yet" | naturaltime }}
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="w-full">
+
+    <form method="POST" action="{% url 'coles:delete' object.pk %}">
+      {% csrf_token %}
+      {{ form|crispy }}
+      <div class="flex w-full justify-between gap-2">
+        <button class="bg-red-600 text-white px-4 py-2 rounded-md w-full text-center" type="submit">
+          Delete</button>
+        <a href="{{request.META.HTTP_REFERER}}" class="bg-gray-200 px-4 py-2 rounded-md w-full text-center">Cancel</a>
+      </div>
+    </form>
+  </div>
+
 </div>
 
 {% endblock content %}
