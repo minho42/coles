@@ -40,19 +40,11 @@ def sync(request):
 
 class ColesListView(LoginRequiredMixin, ListView):
     model = Coles
-    template_name = "coles/coles_list.html"
-    context_object_name = "coles_cards"
 
     def get_queryset(self):
         return Coles.objects.filter(user=self.request.user).order_by(
             "last_sync_time", "-is_last_sync_success", "balance", "-created"
         )
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["coles_cards_count"] = Coles.objects.filter(user=self.request.user).count()
-        context["coles_cards_count_available"] = Coles.objects.filter(user=self.request.user).count()
-        return context
 
 
 class ColesCreateView(LoginRequiredMixin, CreateView):
@@ -76,16 +68,6 @@ class ColesCreateView(LoginRequiredMixin, CreateView):
 
 class ColesDetailView(LoginRequiredMixin, DetailView):
     model = Coles
-    template_name = "coles/coles_detail.html"
-
-    # def get_queryset(self):
-    #     qs = super().get_queryset()
-    #     qs = qs.filter(user=self.request.user)
-    #     return qs
-
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     return context
 
 
 class ColesDeleteView(LoginRequiredMixin, DeleteView):

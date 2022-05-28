@@ -12,12 +12,12 @@
   </div>
 
   <p class="">
-    {{ coles_cards_count }} gift card{{ coles_cards_count|pluralize }}
+    {{ object_list|length }} gift card{{ object_list|length|pluralize }}
   </p>
-  {% if coles_cards %}
-  {% for card in coles_cards %}
+  {% if object_list %}
+  {% for card in object_list %}
 
-  <div class="w-full bg-white rounded-xl border border-gray-300 text-center mb-3
+  <div class="w-full bg-white rounded-xl text-center mb-3
   {% if card.is_last_sync_success %} text-black{% else %} text-gray-500 {% endif %}">
     <a href="{% url 'coles:detail' card.pk %}">
       <div class="px-4 py-3 space-y-2">
