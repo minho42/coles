@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npx tailwindcss -i css/tailwind.css -o ../static/css/tailwind-output.css"
+    "build": "npx tailwindcss -i css/tailwind.css -o ../static/css/tailwind-output.css",
+    "dev": "nodemon --watch '../templates/**/*' -e html -x 'npm run build'"
   },
   "keywords": [],
   "author": "Min ho Kim <minho42@gmail.com>",
