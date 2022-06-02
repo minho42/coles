@@ -625,6 +625,10 @@ h4 {
   height: 2rem;
 }
 
+.h-12 {
+  height: 3rem;
+}
+
 .h-10 {
   height: 2.5rem;
 }
@@ -857,11 +861,6 @@ h4 {
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.text-gray-500 {
-  --tw-text-opacity: 1;
-  color: rgb(107 114 128 / var(--tw-text-opacity));
 }
 
 .opacity-0 {

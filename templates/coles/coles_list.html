@@ -19,8 +19,7 @@
   {% if object_list %}
   {% for card in object_list %}
 
-  <div class="w-full bg-white rounded-xl text-center mb-3
-  {% if card.is_last_sync_success %} text-black{% else %} text-gray-500 {% endif %}">
+  <div class="w-full bg-white rounded-xl text-center mb-3">
     <a href="{% url 'coles:detail' card.pk %}">
       <div class="px-4 py-3 space-y-2">
 
