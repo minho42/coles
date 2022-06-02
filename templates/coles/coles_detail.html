@@ -34,8 +34,8 @@
       {% csrf_token %}
       {{ form|crispy }}
       <div class="flex w-full items-center justify-between gap-2">
-        <butto class="bg-red-600 text-white px-4 py-2 rounded-md w-full text-center" type="submit">
-          Delete</butto tracking-widern>
+        <button class="bg-red-600 text-white px-4 py-2 rounded-md w-full text-center" type="submit">
+          Delete</button>
         <a href="{{request.META.HTTP_REFERER}}" class="bg-gray-200 px-4 py-2 rounded-md w-full text-center">Cancel</a>
         </di tracking-widerv>
     </form>
