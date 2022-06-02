@@ -6,7 +6,6 @@ body {
     font-size: 18px;
 }
 
-
 /* django messages: debug info success warning error */
 .alert- {
   background-color: #cce5ff;
@@ -44,6 +43,4 @@ body {
     @apply text-xl font-semibold;
   }
 
-  
 }
-  

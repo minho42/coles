@@ -25,7 +25,7 @@ def sync(request):
             card.is_last_sync_success = True
             card.last_sync_time = now()
             card.save()
-            messages.success(request, f"Synced: {card.card_number}: {card.balance}")
+            messages.success(request, f"Synced: {card.card_number}: ${card.balance}")
         except:
             card.balance = 0
             card.is_last_sync_success = False
