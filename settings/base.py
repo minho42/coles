@@ -1,4 +1,7 @@
+import os, subprocess
 from pathlib import Path
+
+import dj_database_url
 import environ
 
 env = environ.Env(DEBUG=(bool, False))
@@ -81,16 +84,24 @@ SITE_ID = 1
 WSGI_APPLICATION = "project.wsgi.application"
 
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "coles",
-        "USER": env("COLES_DB_USERNAME"),
-        "PASSWORD": env("COLES_DB_PASSWORD"),
-        "HOST": "localhost",
-        "PORT": "5432",
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "coles",
+#         "USER": env("COLES_DB_USERNAME"),
+#         "PASSWORD": env("COLES_DB_PASSWORD"),
+#         "HOST": "localhost",
+#         "PORT": "5432",
+#     }
+# }
+
+# https://stackoverflow.com/questions/43459160/connect-django-to-live-heroku-postgres-database
+# bash_command = "heroku config:get DATABASE_URL -a coles2"
+# heroku_database_url = subprocess.check_output(["bash", "-c", bash_command]).decode("utf-8").replace("\n", "")
+# DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True, default=heroku_database_url)
+
+DATABASES = {}
+DATABASES["default"] = dj_database_url.config(default=env("HEROKU_DB_URL"), conn_max_age=600, ssl_require=True)
 
 
 AUTH_PASSWORD_VALIDATORS = [
