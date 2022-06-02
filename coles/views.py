@@ -45,7 +45,7 @@ class ColesListView(LoginRequiredMixin, ListView):
 
 class ColesCreateView(LoginRequiredMixin, CreateView):
     model = Coles
-    fields = ["card_number", "pin"]
+    fields = ["card_number", "pin", "balance"]
     template_name = "coles/coles_create.html"
 
     def form_valid(self, form):
