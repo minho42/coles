@@ -7,6 +7,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, ListView
 from django.utils.timezone import now
+from core.utils import which_settings
 
 from .scraper import get_balance
 from .models import Coles
@@ -41,6 +42,11 @@ class ColesListView(LoginRequiredMixin, ListView):
         return Coles.objects.filter(user=self.request.user).order_by(
             "last_sync_time", "-is_last_sync_success", "balance", "-created"
         )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["is_production"] = which_settings == "production"
+        return context
 
 
 class ColesCreateView(LoginRequiredMixin, CreateView):
