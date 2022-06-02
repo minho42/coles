@@ -101,7 +101,7 @@ WSGI_APPLICATION = "project.wsgi.application"
 # DATABASES["default"] = dj_database_url.config(conn_max_age=600, ssl_require=True, default=heroku_database_url)
 
 DATABASES = {}
-DATABASES["default"] = dj_database_url.config(default=env("HEROKU_DB_URL"), conn_max_age=600, ssl_require=True)
+DATABASES["default"] = dj_database_url.config(default=env("DATABASE_URL"), conn_max_age=600, ssl_require=True)
 
 
 AUTH_PASSWORD_VALIDATORS = [
