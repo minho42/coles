@@ -2,7 +2,7 @@
 
 <nav>
   <header class="border-b border-gray-300">
-    <div class="bg-white flex items-center justify-between pl-3 pr-3 py-2 h-12">
+    <div class="bg-white flex items-center justify-between px-2 py-2 h-12">
       <div class="flex items-center">
         <a class="px-1 py-1 font-semibold text-black hover:text-black" href="{% url 'coles:list' %}">
           <span class="text-4xl">🎁</span>
@@ -12,27 +12,27 @@
       <div class="">
         {% if request.user.is_authenticated %}
 
-        <div class="mr-3 my-2">
+        <div class="my-2">
           {% if request.user.is_superuser %}
-          <a class="px-3 py-2 text-center rounded-lg hover:bg-gray-100" href="{% url 'admin:index' %}" target="_blank"
+          <a class="px-2 py-2 text-center rounded-lg hover:bg-gray-100" href="{% url 'admin:index' %}" target="_blank"
             rel="noopener noreferrer">
             Admin
           </a>
           {% endif %}
 
-          <a class="px-3 py-2 text-center rounded-lg hover:bg-gray-100"
+          <a class="px-2 py-2 text-center rounded-lg hover:bg-gray-100"
             href="{% url 'profiles:user' request.user.slug %}">
             <b>{{ user.firstname_or_username|truncatechars:10 }}</b>
           </a>
 
-          <a class="px-3 py-2 text-center rounded-lg hover:bg-gray-100" href="{% url 'account_logout' %}">
+          <a class="px-2 py-2 text-center rounded-lg hover:bg-gray-100" href="{% url 'account_logout' %}">
             Log out</a>
         </div>
         {% else %}
         <div class="flex">
-          <a class="text-black hover:text-black block px-3 py-1 text-center rounded-lg border-2 border-blue-500 hover:bg-gray-100"
+          <a class="text-black hover:text-black block px-2 py-1 text-center rounded-lg border-2 border-blue-500 hover:bg-gray-100"
             href="{% url 'account_signup' %}">Sign up</a>
-          <a class="text-black hover:text-black block px-3 py-1 text-center rounded-lg hover:bg-gray-100"
+          <a class="text-black hover:text-black block px-2 py-1 text-center rounded-lg hover:bg-gray-100"
             href="{% url 'account_login' %}">Log in</a>
         </div>
         {% endif %}
