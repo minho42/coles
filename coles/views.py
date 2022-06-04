@@ -19,19 +19,19 @@ def sync(request):
     cards = Coles.objects.filter(user=request.user.id)
     for card in cards:
         try:
-            balance = get_balance(card.card_number, card.pin)
+            balance = get_balance(card.short_card_number, card.pin)
             print(balance)
 
             card.balance = float(balance)
             card.is_last_sync_success = True
             card.last_sync_time = now()
             card.save()
-            messages.success(request, f"Synced: {card.card_number}: ${card.balance}")
+            messages.success(request, f"Synced: {card.short_card_number}: ${card.balance}")
         except:
             card.balance = 0
             card.is_last_sync_success = False
             card.save()
-            messages.error(request, f"Something went wrong: {card.card_number}")
+            messages.error(request, f"Something went wrong: {card.short_card_number}")
     return HttpResponseRedirect(reverse("coles:list"))
 
 
