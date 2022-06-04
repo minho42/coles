@@ -45,5 +45,5 @@ class Coles(TimeStampedModel):
         return settings.STATICFILES_DIRS[0] / "svg" / self.barcode_filename_with_extension
 
     @property
-    def barcode_path_for_template(self):
+    def barcode_path_relative(self):
         return f"{settings.STATIC_URL}svg/{self.barcode_filename_with_extension}"

@@ -24,7 +24,7 @@
       <div class="px-4 py-3 space-y-2">
         <div class="">
           {% if card.barcode_filename %}
-          <img class="w-full" src="{{ card.barcode_path_for_template }}" alt="barcode" />
+          <img class="w-full" src="{{ card.barcode_path_relative }}" alt="barcode" />
           {% else %}
           <p>
             No barcode image
