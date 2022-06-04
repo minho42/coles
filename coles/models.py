@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.urls import reverse
@@ -26,3 +27,23 @@ class Coles(TimeStampedModel):
     @property
     def short_card_number(self):
         return self.card_number[-17:]
+
+    @property
+    def barcode_filename_without_extension(self):
+        return f"barcode_{self.short_card_number}"
+
+    @property
+    def barcode_filename_with_extension(self):
+        return f"{self.barcode_filename_without_extension}.svg"
+
+    @property
+    def barcode_fullpath_without_extension(self):
+        return settings.STATICFILES_DIRS[0] / "svg" / self.barcode_filename_without_extension
+
+    @property
+    def barcode_fullpath_with_extension(self):
+        return settings.STATICFILES_DIRS[0] / "svg" / self.barcode_filename_with_extension
+
+    @property
+    def barcode_path_for_template(self):
+        return f"{settings.STATIC_URL}svg/{self.barcode_filename_with_extension}"

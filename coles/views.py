@@ -1,4 +1,3 @@
-from django.conf import settings
 from typing import final
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -61,9 +60,8 @@ class ColesCreateView(LoginRequiredMixin, CreateView):
         try:
             success_url = super().form_valid(form)
             new_card_number = form.cleaned_data["card_number"]
-            filename = f"barcode_{form.instance.short_card_number}"
-            if generate_barcode(new_card_number, settings.MEDIA_ROOT / filename):
-                form.instance.barcode_filename = filename
+            if generate_barcode(new_card_number, form.instance.barcode_fullpath_without_extension):
+                form.instance.barcode_filename = form.instance.barcode_filename_with_extension
 
             form.instance.save()
             messages.success(self.request, f"Added: {new_card_number}")

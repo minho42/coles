@@ -23,8 +23,15 @@
     <a href="{% url 'coles:detail' card.pk %}">
       <div class="px-4 py-3 space-y-2">
         <div class="">
-          <img class="w-full" src="{{ MEDIA_URL }}{{ card.barcode_filename }}.svg" alt="barcode" />
+          {% if card.barcode_filename %}
+          <img class="w-full" src="{{ card.barcode_path_for_template }}" alt="barcode" />
+          {% else %}
+          <p>
+            No barcode image
+          </p>
+          {% endif %}
         </div>
+
         <div class="text-2xl tracking-wider">
           {{ card.short_card_number }}
         </div>
