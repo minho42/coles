@@ -22,9 +22,11 @@
   <div class="w-full bg-white rounded-xl text-center mb-3">
     <a href="{% url 'coles:detail' card.pk %}">
       <div class="px-4 py-3 space-y-2">
-
+        <div class="">
+          <img class="w-full" src="{{ MEDIA_URL }}{{ card.barcode_filename }}.svg" alt="barcode" />
+        </div>
         <div class="text-2xl tracking-wider">
-          {{ card.card_number }}
+          {{ card.short_card_number }}
         </div>
         <div class="text-2xl">
           PIN: {{ card.pin }}

@@ -1,3 +1,4 @@
+from django.conf import settings
 from typing import final
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -8,7 +9,7 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, ListView
 from django.utils.timezone import now
 from core.utils import which_settings
-
+from .barcode_generator import generate_barcode
 from .scraper import get_balance
 from .models import Coles
 
@@ -59,8 +60,13 @@ class ColesCreateView(LoginRequiredMixin, CreateView):
 
         try:
             success_url = super().form_valid(form)
+            new_card_number = form.cleaned_data["card_number"]
+            filename = f"barcode_{form.instance.short_card_number}"
+            if generate_barcode(new_card_number, settings.MEDIA_ROOT / filename):
+                form.instance.barcode_filename = filename
+
             form.instance.save()
-            messages.success(self.request, f"Added: {form.cleaned_data['card_number']}")
+            messages.success(self.request, f"Added: {new_card_number}")
             return success_url
 
         except IntegrityError:
