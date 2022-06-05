@@ -4,7 +4,7 @@
 {% block title %}Coles{% endblock title %}
 
 {% block content %}
-<div class="flex flex-col space-y-3 items-center w-full sm:w-auto">
+<div class="flex flex-col space-y-4 items-center w-full sm:w-auto">
 
   <div class="flex w-full justify-between gap-2">
     {% if not is_production %}
@@ -22,14 +22,8 @@
   <div class="w-full bg-white rounded-xl text-center mb-3">
     <a href="{% url 'coles:detail' card.pk %}">
       <div class="px-4 py-3 space-y-2">
-        <div class="">
-          {% if card.barcode_filename %}
-          <img class="w-full" src="{{ card.barcode_path_relative }}" alt="barcode" />
-          {% else %}
-          <p>
-            No barcode image
-          </p>
-          {% endif %}
+        <div class="flex ">
+          <svg id="card_{{ card.id }}"></svg>
         </div>
 
         <div class="text-2xl tracking-wider">
@@ -52,12 +46,33 @@
       </div>
     </a>
   </div>
-
-
-
   {% endfor %}
 
   {% endif %}
+
+
 </div>
 
 {% endblock content %}
+
+{% block javascript %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.5/barcodes/JsBarcode.code128.min.js"
+  integrity="sha512-TCwEy6ri6RyKTeAaYyKK17oq+caW8w9DMJxI/fYX2p2ZRcuNKotXa8Lu9j5vsqCbddAc6FEVE7K9zeMnk0Q4gw=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+  const cards = [
+    {% for card in object_list %}
+  {
+    id: "{{ card.id }}",
+      card_number: "{{ card.card_number }}",
+      },
+  {% endfor %}
+  ];
+  console.log(cards)
+  cards.forEach((card) => {
+    JsBarcode(`#card_${card.id}`, card.card_number, { format: "CODE128", displayValue: false, height: "80" });
+  })
+
+</script>
+{% endblock javascript %}

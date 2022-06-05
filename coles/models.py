@@ -13,7 +13,6 @@ class Coles(TimeStampedModel):
     balance = models.DecimalField(max_digits=6, decimal_places=2, null=True, default=0.0)
     is_last_sync_success = models.BooleanField(default=False)
     last_sync_time = models.DateTimeField(auto_now=False, null=True)
-    barcode_filename = models.CharField(max_length=255)
 
     def __str__(self):
         return f"{self.card_number[:4]}...{self.card_number[-4:]}: {self.balance}"
@@ -27,23 +26,3 @@ class Coles(TimeStampedModel):
     @property
     def short_card_number(self):
         return self.card_number[-17:]
-
-    @property
-    def barcode_filename_without_extension(self):
-        return f"barcode_{self.short_card_number}"
-
-    @property
-    def barcode_filename_with_extension(self):
-        return f"{self.barcode_filename_without_extension}.svg"
-
-    @property
-    def barcode_fullpath_without_extension(self):
-        return settings.STATICFILES_DIRS[0] / "svg" / self.barcode_filename_without_extension
-
-    @property
-    def barcode_fullpath_with_extension(self):
-        return settings.STATICFILES_DIRS[0] / "svg" / self.barcode_filename_with_extension
-
-    @property
-    def barcode_path_relative(self):
-        return f"{settings.STATIC_URL}svg/{self.barcode_filename_with_extension}"

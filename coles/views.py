@@ -8,7 +8,6 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, DeleteView, DetailView, ListView
 from django.utils.timezone import now
 from core.utils import which_settings
-from .barcode_generator import generate_barcode
 from .scraper import get_balance
 from .models import Coles
 
@@ -60,9 +59,6 @@ class ColesCreateView(LoginRequiredMixin, CreateView):
         try:
             success_url = super().form_valid(form)
             new_card_number = form.cleaned_data["card_number"]
-            if generate_barcode(new_card_number, form.instance.barcode_fullpath_without_extension):
-                form.instance.barcode_filename = form.instance.barcode_filename_with_extension
-
             form.instance.save()
             messages.success(self.request, f"Added: {new_card_number}")
             return success_url
