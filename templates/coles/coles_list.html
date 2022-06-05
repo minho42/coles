@@ -71,7 +71,7 @@
   ];
   // console.log(cards)
   cards.forEach((card) => {
-    JsBarcode(`#card_${card.id}`, card.card_number, { format: "CODE128", displayValue: false, height: "80" });
+    JsBarcode(`#card_${card.id}`, card.card_number, { format: "CODE128", displayValue: false, });
   })
 
 </script>
