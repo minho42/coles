@@ -22,7 +22,7 @@
   <div class="w-full bg-white rounded-xl text-center mb-3">
     <a href="{% url 'coles:detail' card.pk %}">
       <div class="px-4 py-3 space-y-2">
-        <div class="flex ">
+        <div class="flex justify-center">
           <svg id="card_{{ card.id }}"></svg>
         </div>
 
@@ -69,7 +69,7 @@
       },
   {% endfor %}
   ];
-  console.log(cards)
+  // console.log(cards)
   cards.forEach((card) => {
     JsBarcode(`#card_${card.id}`, card.card_number, { format: "CODE128", displayValue: false, height: "80" });
   })
