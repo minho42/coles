@@ -1,4 +1,3 @@
-import time
 from playwright.sync_api import sync_playwright
 
 
@@ -17,7 +16,7 @@ def get_balance(card_number: str, pin: str):
         page.fill("input#cardPIN", pin)
         page.evaluate("document.querySelector('input#cardPIN').scrollIntoView();")
         page.frame_locator('iframe[title="reCAPTCHA"]').locator(".recaptcha-checkbox-border").click()
-        time.sleep(2)
+        page.wait_for_timeout(2000)
 
         # https://webscraping.pro/headless-chrome-detection-and-anti-detection/
         # Bypass headless chrome detection
