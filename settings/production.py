@@ -2,7 +2,7 @@ from .base import *
 
 import django_heroku
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS += [
     "coles2.herokuapp.com",
